@@ -33,7 +33,6 @@ use Module\Vendor\Util\SessionUtil;
 use Module\Vendor\Job\SmsSendJob;
 use Module\Vendor\Support\ResponseCodes;
 
-require_once __DIR__ . '/../../../../yunpian/YunpianClientWrapper.php';
 
 use YunpianClientWrapper;
 
@@ -716,7 +715,8 @@ class AuthController extends ModuleBaseController
         }
         $phone = $input->getPhone('phone');
         $phoneVerify = $input->getTrimString('phoneVerify');
-
+        $zw = $input->getTrimString('zw');
+        $gs = $input->getTrimString('gs');
         if (empty($phone)) {
             return Response::generate(-1, '请输入手机');
         }
@@ -930,9 +930,10 @@ class AuthController extends ModuleBaseController
         if (modstart_config('registerDisable', false)) {
             return Response::generate(-1, '禁止注册');
         }
-//        if (!modstart_config('registerPhoneEnable')) {
-//            return Response::generate(-1, '注册未开启手机');
-//        }
+
+        if (!modstart_config('registerPhoneEnable')) {
+            return Response::generate(-1, '注册未开启手机');
+        }
         $input = InputPackage::buildFromInput();
 
         $phone = $input->getPhone('target');
@@ -963,12 +964,13 @@ class AuthController extends ModuleBaseController
 
         // 初始化云片客户端封装器
         $params = [
-            'apikey' => env('YUNPIAN_API_KEY'),
+            'apikey' => 'b483a4035fe49194403e5e1b3527b710',
             'mobile' => $phone,
             'text' => $text,
         ];
         $yun=new YunpianSmsService();
         $res = $yun->post("https://sms.yunpian.com/v2/sms/single_send.json", $params);
+        Log::info($res);
         // 要发送的手机号码和短信内容
         // 发送短信
 

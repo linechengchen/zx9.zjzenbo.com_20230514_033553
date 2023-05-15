@@ -31,6 +31,8 @@ class CreateMemberUser extends Migration
             $table->tinyInteger('gender')->nullable()->comment('性别');
             $table->string('realname', 20)->nullable()->comment('真实姓名');
             $table->string('signature', 200)->nullable()->comment('个性签名');
+            $table->string('zw', 20)->nullable()->comment('职位');
+            $table->string('gs', 200)->nullable()->comment('公司');
 
             $table->index('username');
             $table->index('phone');

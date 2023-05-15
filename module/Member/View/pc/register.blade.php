@@ -69,11 +69,22 @@
                 <form action="{{\ModStart\Core\Input\Request::currentPageUrl()}}" method="post" data-ajax-form>
                     <div class="line">
                         <div class="field">
-                            <input type="text" class="form-lg" name="username" placeholder="用户名" />
+                            <input type="text" class="form-lg" name="username" placeholder="请输入您的姓名" />
+                        </div>
+                    </div>
+                    <div class="line">
+                        <div class="field">
+                            <input type="text" class="form-lg" name="zw" placeholder="请输入您的职位" />
+                        </div>
+                    </div>
+                    <div class="line">
+                        <div class="field">
+                            <input type="text" class="form-lg" name="gs" placeholder="请输入公司全称" />
                         </div>
                     </div>
                     @include('module::Member.View.pc.inc.registerCaptcha')
-{{--                    @if(modstart_config('registerPhoneEnable'))--}}
+                    @if(modstart_config('registerPhoneEnable'))
+                        {{dump(modstart_config('registerPhoneEnable'))}}
                         <div class="line">
                             <div class="field">
                                 <div class="row no-gutters">
@@ -93,7 +104,7 @@
                                 <input type="text" class="form-lg" name="phoneVerify" placeholder="手机验证码" />
                             </div>
                         </div>
-{{--                    @endif--}}
+                    @endif
                     @if(modstart_config('registerEmailEnable'))
                         <div class="line">
                             <div class="field">
@@ -123,6 +134,11 @@
                     <div class="line">
                         <div class="field">
                             <input type="password" class="form-lg" name="passwordRepeat" placeholder="重复密码" />
+                        </div>
+                    </div>
+                    <div class="line">
+                        <div class="field">
+                            <input type="textarea" class="form-lg" name="ly" placeholder="请输入您的留言内容" />
                         </div>
                     </div>
                     @foreach(\Module\Member\Provider\RegisterProcessor\MemberRegisterProcessorProvider::listAll() as $provider)
