@@ -1,0 +1,27 @@
+{
+    "name": "Cms",
+    "title": "通用CMS",
+    "env": [
+        "laravel5",
+        "laravel9"
+    ],
+    "require": [
+        "Vendor:>=1.9.0",
+        "Member",
+        "Banner:>=1.1.0"
+    ],
+    "suggest": [
+        "TagManager",
+        "WordSpliter",
+        "SiteMapManager"
+    ],
+    "tags": [
+        "通用CMS"
+    ],
+    "version": "3.3.0",
+    "modstartVersion": ">=2.9.0",
+    "author": "ModStart",
+    "description": "提供通用的动态模型内容管理系统",
+    "providers": [
+    ]
+}

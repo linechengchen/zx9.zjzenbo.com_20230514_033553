@@ -1,0 +1,15 @@
+location ^~ /.git {
+    deny all;
+}
+
+location / {
+    try_files $uri $uri/ /index.php?$query_string;
+}
+
+location ~ \.(gif|jpg|jpeg|png|bmp|ico|css|js)$ {
+   expires max;
+}
+
+location ~* \.(eot|ttf|woff|woff2)$ {
+    add_header Access-Control-Allow-Origin '*';
+}
