@@ -787,7 +787,19 @@ class AuthController extends ModuleBaseController
         $password = $input->getTrimString('password');
         $passwordRepeat = $input->getTrimString('passwordRepeat');
         $captcha = $input->getTrimString('captcha');
-
+        $zw = $input->getTrimString('zw');
+        $gs = $input->getTrimString('gs');
+        $ly = $input->getTrimString('ly');
+        $tynumber = $input->getTrimString('tynumber');
+        if (empty($zw)) {
+            return Response::generate(-1, '职位不能为空');
+        }
+        if (empty($gs)) {
+            return Response::generate(-1, '公司不能为空');
+        }
+        if (empty($tynumber)) {
+            return Response::generate(-1, '统一社会信用号不能为空');
+        }
         if (empty($username)) {
             return Response::generate(-1, '用户名不能为空');
         }
@@ -852,7 +864,7 @@ class AuthController extends ModuleBaseController
             }
         }
 
-        $ret = MemberUtil::register($username, $phone, $email, $password);
+        $ret = MemberUtil::register($username, $phone, $email, $password,$zw,$gs,$ly,$tynumber);
         if ($ret['code']) {
             return Response::generate(-1, $ret['msg']);
         }

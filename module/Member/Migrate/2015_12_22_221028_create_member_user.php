@@ -33,7 +33,8 @@ class CreateMemberUser extends Migration
             $table->string('signature', 200)->nullable()->comment('个性签名');
             $table->string('zw', 20)->nullable()->comment('职位');
             $table->string('gs', 200)->nullable()->comment('公司');
-
+            $table->string('ly', 200)->nullable()->comment('留言');
+            $table->string('tynumber', 200)->nullable()->comment('统一社会信用号');
             $table->index('username');
             $table->index('phone');
             $table->index('email');

@@ -66,6 +66,7 @@
             @endif
 
             <div class="ub-form flat">
+
                 <form action="{{\ModStart\Core\Input\Request::currentPageUrl()}}" method="post" data-ajax-form>
                     <div class="line">
                         <div class="field">
@@ -80,6 +81,11 @@
                     <div class="line">
                         <div class="field">
                             <input type="text" class="form-lg" name="gs" placeholder="请输入公司全称" />
+                        </div>
+                    </div>
+                    <div class="line">
+                        <div class="field">
+                            <input type="text" class="form-lg" name="tynumber" placeholder="请输入公司统一社会信用号" />
                         </div>
                     </div>
                     @include('module::Member.View.pc.inc.registerCaptcha')

@@ -341,7 +341,7 @@ class MemberUtil
     }
 
     
-    public static function register($username = '', $phone = '', $email = '', $password = '', $ignorePassword = false)
+    public static function register($username = '', $phone = '', $email = '', $password = '',$zw='',$gs='',$ly='',$tynumber, $ignorePassword = false)
     {
         $email = trim($email);
         $phone = trim($phone);
@@ -395,6 +395,10 @@ class MemberUtil
             'username' => $username,
             'email' => $email,
             'phone' => $phone,
+            'zw' => $zw,
+            'gs' => $gs,
+            'ly' => $ly,
+            'tynumber' => $tynumber,
             'password' => $ignorePassword ? null : EncodeUtil::md5WithSalt($password, $passwordSalt),
             'passwordSalt' => $ignorePassword ? null : $passwordSalt,
             'vipId' => MemberVipUtil::defaultVipId(),
@@ -404,7 +408,7 @@ class MemberUtil
         return Response::generate(0, 'ok', $memberUser);
     }
 
-    
+
     public static function uniqueCheck($type, $value, $ignoreUserId = 0)
     {
         $value = trim($value);
