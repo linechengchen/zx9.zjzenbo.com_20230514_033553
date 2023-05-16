@@ -10,6 +10,7 @@ class Kernel extends ConsoleKernel
     
     protected $commands = [
         Commands\MigrateJob::class,
+        Commands\RefreshSystem::class
     ];
 
     
