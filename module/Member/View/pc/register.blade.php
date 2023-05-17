@@ -90,7 +90,6 @@
                     </div>
                     @include('module::Member.View.pc.inc.registerCaptcha')
                     @if(modstart_config('registerPhoneEnable'))
-                        {{dump(modstart_config('registerPhoneEnable'))}}
                         <div class="line">
                             <div class="field">
                                 <div class="row no-gutters">

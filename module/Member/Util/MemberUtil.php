@@ -341,7 +341,7 @@ class MemberUtil
     }
 
     
-    public static function register($username = '', $phone = '', $email = '', $password = '',$zw='',$gs='',$ly='',$tynumber, $ignorePassword = false)
+    public static function register($username = '', $phone = '', $email = '', $password = '',$zw='',$gs='',$ly='',$tynumber='', $ignorePassword = false)
     {
         $email = trim($email);
         $phone = trim($phone);

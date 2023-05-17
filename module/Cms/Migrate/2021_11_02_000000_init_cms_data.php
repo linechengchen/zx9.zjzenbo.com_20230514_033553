@@ -115,6 +115,7 @@ class InitCmsData extends Migration
             'listTemplate' => 'job.blade.php',
             'detailTemplate' => 'job.blade.php',
         ]);
+
     }
 
     

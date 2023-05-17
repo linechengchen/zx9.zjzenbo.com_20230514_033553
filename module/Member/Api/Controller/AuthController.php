@@ -983,6 +983,9 @@ class AuthController extends ModuleBaseController
         $yun=new YunpianSmsService();
         $res = $yun->post("https://sms.yunpian.com/v2/sms/single_send.json", $params);
         Log::info($res);
+        if ($res['code']!=0){
+            return Response::generate(-1, $res['msg'].$res['detail']);
+        }
         // 要发送的手机号码和短信内容
         // 发送短信
 
