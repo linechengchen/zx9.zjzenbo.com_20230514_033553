@@ -9,6 +9,7 @@ use ModStart\Admin\Auth\Admin;
 use ModStart\Core\Dao\ModelUtil;
 use ModStart\Core\Input\Response;
 use ModStart\Module\ModuleManager;
+use Module\Cms\Util\CmsCatUtil;
 use Module\Cms\Util\CmsModelUtil;
 
 class RefreshSystem extends Command
@@ -54,25 +55,59 @@ class RefreshSystem extends Command
                 }
             }
         }
+        $this->add_cms_model_yearnews();
+        $this->add_cms_cat_yearnews();
 
     }
-    public function  addyearnewsmodel(){
-        $data = [];
 
-        $data['title'] = '会展年历';
-        $data['name'] = $input->getTrimString('name');
-        $data['enable'] = $input->getBoolean('enable');
-        $data['fieldType'] = $input->getTrimString('fieldType');
-        $data['fieldData'] = $input->getArray('fieldData');
-        $data['isRequired'] = $input->getBoolean('isRequired');
-        $data['isSearch'] = $input->getBoolean('isSearch');
-        $data['isList'] = $input->getBoolean('isList');
-        $data['placeholder'] = $input->getTrimString('placeholder');
-        $data['maxLength'] = $input->getInteger('maxLength');
-        $data['sort'] = ModelUtil::sortNext('cms_model_field', ['modelId' => $model['id']]);
-        $data = ModelUtil::insert('cms_model_field', $data);
-        $data['fieldData'] = json_decode($data['fieldData'], true);
+    public function add_cms_model_yearnews() {
+        $data=[
+            "title" => "会展年历",
+            "name" => "yearnews",
+            "enable" => true,
+            "mode" => "1",
+            "listTemplate" => "yearnews.blade.php",
+            "detailTemplate" => "yearnews.blade.php",
+            "pageTemplate" => "default.blade.php",
+            "formTemplate" => "default.blade.php",
+        ];
+        ModelUtil::insert('cms_model', $data);
+    }
 
-        CmsModelUtil::addField($model, $data);
+    public function add_cms_cat_yearnews()
+    {
+        $data = [ // module\Cms\Admin\Controller\ModelController.php:237
+            "created_at"=> "2023-05-18 00:21:36",
+            "updated_at"=> "2023-05-18 00:21:37",
+            "pid"=> 0,
+            "sort"=> 0,
+            "title"=> "会展年历",
+            "subTitle"=> null,
+            "bannerBg"=> null,
+            "url"=> "yearnews",
+            "modelId"=> 4,
+            "listTemplate"=> "yearnews.blade.php",
+            "detailTemplate"=> "yearnews.blade.php",
+            "seoTitle"=> null,
+            "seoDescription"=> null,
+            "seoKeywords"=> null,
+            "icon"=> null,
+            "cover"=> null,
+            "visitMemberGroupEnable"=> null,
+            "visitMemberGroups"=> null,
+            "visitMemberVipEnable"=> null,
+            "visitMemberVips"=> null,
+            "pageTemplate"=> null,
+            "formTemplate"=> null,
+            "memberUserPostEnable"=> null,
+            "postMemberGroupEnable"=> null,
+            "postMemberGroups"=> null,
+            "postMemberVipEnable"=> null,
+            "postMemberVips"=> null,
+            "pageSize"=> null,
+            "enable"=> 1
+
+        ];
+        $data = ModelUtil::insert('cms_cat', $data);
     }
 }
