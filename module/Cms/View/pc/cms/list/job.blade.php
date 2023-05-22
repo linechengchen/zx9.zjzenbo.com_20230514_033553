@@ -3,7 +3,7 @@
 @section('pageTitleMain'){{$cat['seoTitle']?$cat['seoTitle']:$cat['title']}}@endsection
 @section('pageKeywords'){{$cat['seoKeywords']?$cat['seoKeywords']:$cat['title']}}@endsection
 @section('pageDescription'){{$cat['seoDescription']?$cat['seoDescription']:$cat['title']}}@endsection
-
+{!! \ModStart\ModStart::js('asset/common/lazyLoad.js') !!}
 @section('bodyContent')
 
     <div class="ub-content">

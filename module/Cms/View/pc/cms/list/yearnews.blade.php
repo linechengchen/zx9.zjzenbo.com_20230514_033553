@@ -1,18 +1,24 @@
 @extends($_viewFrame)
 
-@section('pageTitleMain'){{$cat['seoTitle']?$cat['seoTitle']:$cat['title']}}@endsection
-@section('pageKeywords'){{$cat['seoKeywords']?$cat['seoKeywords']:$cat['title']}}@endsection
-@section('pageDescription'){{$cat['seoDescription']?$cat['seoDescription']:$cat['title']}}@endsection
+@section('pageTitleMain')
+    {{$cat['seoTitle']?$cat['seoTitle']:$cat['title']}}
+@endsection
+@section('pageKeywords')
+    {{$cat['seoKeywords']?$cat['seoKeywords']:$cat['title']}}
+@endsection
+@section('pageDescription')
+    {{$cat['seoDescription']?$cat['seoDescription']:$cat['title']}}
+@endsection
 
 @section('bodyContent')
 
     <div class="ub-content">
         <div class="panel-a"
              @if($cat['bannerBg'])
-             style="background-image:url({{\ModStart\Core\Assets\AssetsUtil::fix($cat['bannerBg'])}});"
+                 style="background-image:url({{\ModStart\Core\Assets\AssetsUtil::fix($cat['bannerBg'])}});"
              @else
-             style="background-image:var(--color-primary-gradient-bg);"
-            @endif
+                 style="background-image:var(--color-primary-gradient-bg);"
+                @endif
         >
             <div class="box">
                 <h1 class="title animated fadeInUp">
@@ -39,6 +45,10 @@
 
         <div class="row">
             <div class="col-md-3">
+                <div style="margin: 50px;">
+                    <div id="month-slider"></div>
+                    <div id="selected-month"></div>
+                </div>
 
                 <div class="ub-menu simple margin-bottom">
                     <a class="title @if($catRoot['url']==\ModStart\Core\Input\Request::path()) active @endif"
@@ -108,6 +118,26 @@
 
 @endsection
 
+<script>
+    layui.use('slider', function(){
+        var $ = layui.$
+            ,slider = layui.slider;
+
+        var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+        // Create slider
+        var ins1 = slider.render({
+            elem: '#month-slider'
+            ,min: 0
+            ,max: 11
+            ,step: 1
+            ,input: true
+            ,change: function(value){
+                document.getElementById("selected-month").innerHTML = 'Selected Month: ' + monthNames[value];
+            }
+        });
+    });
+</script>
 
 
 
