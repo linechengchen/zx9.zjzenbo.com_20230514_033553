@@ -79,6 +79,10 @@ class MemberController extends Controller
                                 break;
                         }
                     });
+                $builder->text('zw', '职位');
+                $builder->text('gs', '公司');
+                $builder->text('ly', '留言');
+                $builder->text('tynumber', '统一社会信用号');
                 $builder->text('email', '邮箱');
                 $builder->text('phone', '手机');
                 $builder->text('nickname', '昵称');
@@ -166,6 +170,10 @@ class MemberController extends Controller
             $form->text('username', '用户名');
             $form->text('phone', '手机');
             $form->text('email', '邮箱');
+            $form->text('tynumber', '统一社会信用号');
+            $form->text('ly', '留言');
+            $form->text('gs', '公司');
+            $form->text('zw', '职位');
             $form->text('password', '初始密码')->defaultValue(RandomUtil::lowerString(8));
         });
         $form->layoutPanel('高级', function (Form $form) {
@@ -232,6 +240,10 @@ class MemberController extends Controller
             $form->text('username', '用户名');
             $form->text('phone', '手机');
             $form->text('email', '邮箱');
+            $form->text('tynumber', '统一社会信用号');
+            $form->text('ly', '留言');
+            $form->text('gs', '公司');
+            $form->text('zw', '职位');
         });
         $form->layoutPanel('高级', function (Form $form) {
             $form->text('nickname', '昵称');
@@ -253,6 +265,10 @@ class MemberController extends Controller
                 'username',
                 'phone',
                 'email',
+                'zw',
+                'gs',
+                'ly',
+                'tynumber',
             ]);
             $profile = ArrayUtil::keepKeys($data, [
                 'nickname',

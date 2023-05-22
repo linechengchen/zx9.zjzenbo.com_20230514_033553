@@ -864,7 +864,7 @@ class AuthController extends ModuleBaseController
             }
         }
 
-        $ret = MemberUtil::register($username, $phone, $email, $password,$zw,$gs,$ly,$tynumber);
+        $ret = MemberUtil::register($username, $phone, $email, $password, $zw, $gs, $ly, $tynumber);
         if ($ret['code']) {
             return Response::generate(-1, $ret['msg']);
         }
@@ -980,11 +980,11 @@ class AuthController extends ModuleBaseController
             'mobile' => $phone,
             'text' => $text,
         ];
-        $yun=new YunpianSmsService();
+        $yun = new YunpianSmsService();
         $res = $yun->post("https://sms.yunpian.com/v2/sms/single_send.json", $params);
         Log::info($res);
-        if ($res['code']!=0){
-            return Response::generate(-1, $res['msg'].$res['detail']);
+        if ($res['code'] != 0) {
+            return Response::generate(-1, $res['msg'] . $res['detail']);
         }
         // 要发送的手机号码和短信内容
         // 发送短信
@@ -1170,7 +1170,14 @@ class AuthController extends ModuleBaseController
             return Response::generate(-1, '找回密码没有开启');
         }
         $phone = $input->getPhone('phone');
+
         $verify = $input->getTrimString('verify');
+        $tynumber = $input->getTrimString('tynumber');
+        $memberTy = MemberUtil::getByTynumber($tynumber);
+
+        if (empty($memberTy)) {
+            return Response::generate(-1, '这个统一社会信用号没有账号');
+        }
         if (empty($phone)) {
             return Response::generate(-1, '手机为空或不正确');
         }
@@ -1190,6 +1197,7 @@ class AuthController extends ModuleBaseController
         if (empty($memberUser)) {
             return Response::generate(-1, '手机没有绑定任何账号');
         }
+
         Session::forget('retrievePhoneVerify');
         Session::forget('retrievePhoneVerifyTime');
         Session::forget('retrievePhone');
@@ -1230,8 +1238,22 @@ class AuthController extends ModuleBaseController
         Session::put('retrievePhoneVerify', $verify);
         Session::put('retrievePhoneVerifyTime', time());
         Session::put('retrievePhone', $phone);
+        $text = '【正博】您的验证码是' . $verify . '。如非本人操作，请忽略本短信';
 
-        SmsSendJob::create($phone, 'verify', ['code' => $verify]);
+        // 初始化云片客户端封装器
+        $params = [
+            'apikey' => 'b483a4035fe49194403e5e1b3527b710',
+            'mobile' => $phone,
+            'text' => $text,
+        ];
+        $yun = new YunpianSmsService();
+        $res = $yun->post("https://sms.yunpian.com/v2/sms/single_send.json", $params);
+        Log::info($res);
+        if ($res['code'] != 0) {
+            return Response::generate(-1, $res['msg'] . $res['detail']);
+        }
+
+//        SmsSendJob::create($phone, 'verify', ['code' => $verify]);
 
         return Response::generate(0, '验证码发送成功');
     }

@@ -55,6 +55,16 @@
                     <div class="line">
                         <div class="field">
                             <div class="row no-gutters">
+                                <div class="col-12">
+                                    <input type="text" class="form-lg" name="tynumber" autocomplete="off" placeholder="统一社会信用号" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="line">
+                        <div class="field">
+                            <div class="row no-gutters">
                                 <div class="col-7">
                                     <input type="text" class="form-lg" name="phone" placeholder="输入手机" />
                                 </div>

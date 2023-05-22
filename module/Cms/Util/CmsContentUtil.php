@@ -37,6 +37,17 @@ class CmsContentUtil
     {
         $option['where']['status'] = CmsModelContentStatus::SHOW;
         $option['where']['verifyStatus'] = CmsContentVerifyStatus::VERIFY_PASS;
+        if (!empty(request('min')) && !empty(request('max'))){
+
+            // 转化成时间对象
+            $minDate = Carbon::createFromFormat('m', request('min'));
+            $maxDate = Carbon::createFromFormat('m', request('max'));
+
+            $minMonth = $minDate->month;
+            $maxMonth = $maxDate->month;
+
+            $option['whereRaw'] = sprintf("MONTH(postTime) >= %s AND MONTH(postTime) <= %s", $minMonth, $maxMonth);
+        }
         if (!isset($option['whereOperate'])) {
             $option['whereOperate'] = [];
         }

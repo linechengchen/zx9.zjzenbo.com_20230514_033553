@@ -1,3 +1,6 @@
+{!! \ModStart\ModStart::js('asset/vendor/jquery.js') !!}
+{!! \ModStart\ModStart::js('asset/jquery-ui/jquery-ui.min.js') !!}
+{!! \ModStart\ModStart::css('asset/jquery-ui/jquery-ui.css') !!}
 @extends($_viewFrame)
 
 @section('pageTitleMain')
@@ -42,13 +45,16 @@
     </div>
 
     <div class="ub-container">
+        <div class="row">
+            <p>月份: <span id="month-range"></span></p>
+            <div style="width:80%; margin-top: 30px; margin-bottom: 30px">
+                <div id="slider-range"></div>
 
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-3">
-                <div style="margin: 50px;">
-                    <div id="month-slider"></div>
-                    <div id="selected-month"></div>
-                </div>
+
 
                 <div class="ub-menu simple margin-bottom">
                     <a class="title @if($catRoot['url']==\ModStart\Core\Input\Request::path()) active @endif"
@@ -118,27 +124,56 @@
 
 @endsection
 
-<script>
-    layui.use('slider', function(){
-        var $ = layui.$
-            ,slider = layui.slider;
+{!! \ModStart\ModStart::script("
 
-        var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+function getCurrentURLWithoutParams() {
+    var url = window.location.href;
+    var index = url.indexOf('?');
 
-        // Create slider
-        var ins1 = slider.render({
-            elem: '#month-slider'
-            ,min: 0
-            ,max: 11
-            ,step: 1
-            ,input: true
-            ,change: function(value){
-                document.getElementById("selected-month").innerHTML = 'Selected Month: ' + monthNames[value];
-            }
-        });
-    });
-</script>
+    if (index !== -1) {
+        url = url.substring(0, index);
+    }
 
+    return url;
+}
+var redirectTimeout; // Declare the redirectTimeout variable outside the function
+
+function redirectToPage(min, max) {
+    // Redirect to the desired page, here using Google as an example
+    window.location.href = getCurrentURLWithoutParams()+'?min=' + min + '&max=' + max;
+}
+    var urlParams = new URLSearchParams(window.location.search);
+    var min = urlParams.get('min');
+    var max = urlParams.get('max');
+    // 设置默认的滑动条值
+    var sliderValues = [1, 12];
+
+    if (min) {
+       var sliderValues = [min, max];
+    }
+$('#slider-range').slider({
+    range: true,
+    min: 1,
+    max: 12,
+    values: sliderValues,
+    slide: function(event, ui) {
+        $('#month-range').text(ui.values[0] + ' - ' + ui.values[1]);
+
+        // If there is an ongoing countdown, clear it first
+        if (redirectTimeout) {
+            clearTimeout(redirectTimeout);
+        }
+
+        // Start a new 2.5 seconds (2500 milliseconds) countdown
+        redirectTimeout = setTimeout(function() {
+            redirectToPage(ui.values[0], ui.values[1]);
+        }, 2500);
+    }
+});
+
+$('#month-range').text($('#slider-range').slider('values', 0) +
+    ' - ' + $('#slider-range').slider('values', 1));
+       ") !!}
 
 
 

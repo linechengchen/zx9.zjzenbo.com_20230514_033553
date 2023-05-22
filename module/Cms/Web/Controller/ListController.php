@@ -13,6 +13,7 @@ class ListController extends BaseCatController
 {
     public function index($id = 0)
     {
+
         $data = parent::setup($id);
         $view = $this->getView($data, 'listTemplate');
         $cat = $data['cat'];

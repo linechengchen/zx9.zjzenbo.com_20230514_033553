@@ -465,6 +465,10 @@ class MemberUtil
     {
         return ModelUtil::get('member_user', ['phone' => $phone]);
     }
+    public static function getByTynumber($tynumber)
+    {
+        return ModelUtil::get('member_user', ['tynumber' => $tynumber]);
+    }
 
     public static function changeNickname($memberUserId, $nickname)
     {
