@@ -3,6 +3,7 @@
 
 
 $router->match(['get', 'post'], 'site/config/setting', 'ConfigController@setting');
+$router->match(['get', 'post'], 'site/config/area', 'AreaController@setting');
 
 
 

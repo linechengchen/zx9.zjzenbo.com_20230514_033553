@@ -8,7 +8,7 @@ use ModStart\Admin\Config\AdminMenu;
 
 class ModuleServiceProvider extends ServiceProvider
 {
-    
+
     public function boot(Dispatcher $events)
     {
         AdminMenu::register(function () {
@@ -23,13 +23,20 @@ class ModuleServiceProvider extends ServiceProvider
                             'sort' => 1,
                             'url' => '\Module\Site\Admin\Controller\ConfigController@setting',
                         ],
+
+                        [
+                            'title' => '地区配置',
+                            'sort' => 1,
+                            'url' => '\Module\Site\Admin\Controller\AreaController@setting',
+                        ],
                     ]
                 ]
             ];
+
         });
     }
 
-    
+
     public function register()
     {
 

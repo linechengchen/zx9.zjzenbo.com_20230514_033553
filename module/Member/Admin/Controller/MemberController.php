@@ -151,13 +151,7 @@ class MemberController extends Controller
                     )->width('90%')->height('90%')->render()
                 );
             })
-            ->title('用户管理')
-            ->canShow(false)
-            ->canDelete(true)
-            ->canEdit(false)
-            ->canExport(ModuleManager::getModuleConfig('Member', 'exportEnable',false));
-    }
-
+          ·
     public function selectRemote()
     {
         return Select::optionRemoteHandleModel('member_user', 'id', 'username');
