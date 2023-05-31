@@ -27,7 +27,7 @@ class ModuleServiceProvider extends ServiceProvider
                         [
                             'title' => '地区配置',
                             'sort' => 1,
-                            'url' => '\Module\Site\Admin\Controller\AreaController@setting',
+                            'url' => '\Module\Site\Admin\Controller\AreaController@index',
                         ],
                     ]
                 ]

@@ -43,15 +43,18 @@
             @endforeach
         </div>
     </div>
-
     <div class="ub-container">
-        <div class="row">
-            <p>月份: <span id="month-range"></span></p>
-            <div style="width:80%; margin-top: 30px; margin-bottom: 30px">
+        <div class="row" style="line-height: 40px">
+            月份: <span id="month-range"></span>
+            <div style="width:40%; margin-top: 30px;padding: 15px; margin-bottom: 30px">
                 <div id="slider-range"></div>
-
             </div>
+            <button type="submit" id="monthok" class="btn btn-primary">确定</button>
         </div>
+    </div>
+    <div class="ub-container">
+
+
         <div class="row">
             <div class="col-md-3">
 
@@ -126,6 +129,11 @@
 
 {!! \ModStart\ModStart::script("
 
+$('#monthok').click(function(){
+    var min = $('#slider-range').slider('values', 0);
+    var max = $('#slider-range').slider('values', 1);
+    redirectToPage(min, max);
+});
 function getCurrentURLWithoutParams() {
     var url = window.location.href;
     var index = url.indexOf('?');
@@ -160,14 +168,14 @@ $('#slider-range').slider({
         $('#month-range').text(ui.values[0] + ' - ' + ui.values[1]);
 
         // If there is an ongoing countdown, clear it first
-        if (redirectTimeout) {
-            clearTimeout(redirectTimeout);
-        }
+//        if (redirectTimeout) {
+//            clearTimeout(redirectTimeout);
+//        }
 
         // Start a new 2.5 seconds (2500 milliseconds) countdown
-        redirectTimeout = setTimeout(function() {
-            redirectToPage(ui.values[0], ui.values[1]);
-        }, 2500);
+//        redirectTimeout = setTimeout(function() {
+//            redirectToPage(ui.values[0], ui.values[1]);
+//        }, 2500);
     }
 });
 
